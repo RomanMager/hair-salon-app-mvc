@@ -14,11 +14,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import javax.naming.Binding;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/admin")
@@ -67,6 +68,27 @@ public class AdminController {
     @PostMapping("/employees/save")
     public String createEmployee(Employee employee, BindingResult bindingResult, Model model) {
         employeeService.save(employee);
+
+        return "redirect:/admin/employees";
+    }
+
+    @GetMapping("/employees/{id}/edit")
+    public String showEmployeeEditForm(@PathVariable Long id, Model model) {
+        Optional<Employee> employee = employeeService.getEmployeeById(id);
+        List<SalonProcedure> procedures = procedureService.getAllProcedures();
+        List<Gender> genders = genderService.getAllGenders();
+
+        employee.ifPresent(value -> model.addAttribute("employee", value));
+        model.addAttribute("procedures", procedures);
+        model.addAttribute("genders", genders);
+
+        return "admin/employee-edit";
+    }
+
+    @PostMapping("/employees/{id}/update")
+    public String updateEmployee(@PathVariable Long id, Employee updatedEmployee, Model model) {
+        updatedEmployee.setId(id);
+        employeeService.save(updatedEmployee);
 
         return "redirect:/admin/employees";
     }

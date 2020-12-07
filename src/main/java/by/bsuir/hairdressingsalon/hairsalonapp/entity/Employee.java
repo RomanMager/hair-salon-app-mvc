@@ -3,6 +3,7 @@ package by.bsuir.hairdressingsalon.hairsalonapp.entity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -11,6 +12,7 @@ import java.util.Set;
 @Data
 @NoArgsConstructor
 @EqualsAndHashCode(of = {"id"})
+@ToString(of = {"id", "name", "surname", "payRate", "gender"})
 @Entity
 @Table(name = "employee")
 public class Employee {

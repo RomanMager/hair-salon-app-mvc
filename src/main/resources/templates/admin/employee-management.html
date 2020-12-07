@@ -46,9 +46,11 @@
                         </ul>
                     </td>
                     <td>
-                        <a class="btn btn-warning" th:href="@{/admin/employees/}">
+                        <a class="btn btn-warning" th:href="@{/admin/employees/{id}/edit (id = ${employee.id})}">
                             Изменить
                         </a>
+
+                        <!--TODO: Измени href как у меня выше сделано, только вместо edit будет delete-->
                         <a class="btn btn-danger" th:href="@{/admin/employees/}">
                             Удалить
                         </a>
