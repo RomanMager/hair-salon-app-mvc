@@ -18,8 +18,12 @@
             <ul class="navbar-nav">
                 <li>
                     <a class="nav-item nav-link active" sec:authorize="hasAuthority('ADMIN')" th:href="@{/admin}">
-                        <!-- TODO: Добавить действия для админа-->
                         Админка
+                    </a>
+                </li>
+                <li>
+                    <a class="nav-item nav-link active" sec:authorize="hasAuthority('USER')" th:href="@{/profile}">
+                        Профиль
                     </a>
                 </li>
             </ul>
