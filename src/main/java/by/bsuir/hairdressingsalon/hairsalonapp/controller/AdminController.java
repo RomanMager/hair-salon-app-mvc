@@ -1,9 +1,7 @@
 package by.bsuir.hairdressingsalon.hairsalonapp.controller;
 
-import by.bsuir.hairdressingsalon.hairsalonapp.entity.Customer;
-import by.bsuir.hairdressingsalon.hairsalonapp.entity.Employee;
-import by.bsuir.hairdressingsalon.hairsalonapp.entity.Gender;
-import by.bsuir.hairdressingsalon.hairsalonapp.entity.SalonProcedure;
+import by.bsuir.hairdressingsalon.hairsalonapp.entity.*;
+import by.bsuir.hairdressingsalon.hairsalonapp.service.AppointmentService;
 import by.bsuir.hairdressingsalon.hairsalonapp.service.EmployeeService;
 import by.bsuir.hairdressingsalon.hairsalonapp.service.GenderService;
 import by.bsuir.hairdressingsalon.hairsalonapp.service.SalonProcedureService;
@@ -29,14 +27,17 @@ public class AdminController {
     private final EmployeeService employeeService;
     private final SalonProcedureService procedureService;
     private final GenderService genderService;
+    private final AppointmentService appointmentService;
 
     @Autowired
     public AdminController(EmployeeService employeeService,
                            SalonProcedureService procedureService,
-                           GenderService genderService) {
+                           GenderService genderService,
+                           AppointmentService appointmentService) {
         this.employeeService = employeeService;
         this.procedureService = procedureService;
         this.genderService = genderService;
+        this.appointmentService = appointmentService;
     }
 
     @GetMapping
@@ -91,5 +92,13 @@ public class AdminController {
         employeeService.save(updatedEmployee);
 
         return "redirect:/admin/employees";
+    }
+
+    @GetMapping("/appointments")
+    public String showAppointmentsManagementPage(@AuthenticationPrincipal Customer admin, Model model) {
+        List<ProcedureAppointment> appointments = appointmentService.getAllAppointments();
+        model.addAttribute("appointments", appointments);
+
+        return "admin/appointment-management";
     }
 }
