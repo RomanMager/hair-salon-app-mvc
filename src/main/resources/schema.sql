@@ -102,8 +102,8 @@ CREATE TABLE IF NOT EXISTS employee_procedure
 
 CREATE TABLE IF NOT EXISTS user_role
 (
-    user_id   BIGINT NOT NULL,
-    role_name VARCHAR(20),
+    user_id BIGINT NOT NULL,
+    roles   VARCHAR(20),
 
     FOREIGN KEY (user_id) REFERENCES customer (id)
 );
