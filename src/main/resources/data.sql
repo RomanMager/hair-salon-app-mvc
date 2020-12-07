@@ -41,7 +41,8 @@ VALUES ('maxim',
 
 INSERT INTO user_role
 VALUES (1, 'USER'),
-       (1, 'ADMIN');
+       (1, 'ADMIN'),
+       (2, 'USER');
 
 INSERT INTO employee(id, name, surname, payrate, gender_id)
 VALUES (1, 'Мария', 'Кравчук', 1500, 2),

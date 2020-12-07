@@ -16,7 +16,7 @@ import java.util.Set;
 @Data
 @NoArgsConstructor
 @EqualsAndHashCode(of = {"id"})
-@ToString(of = {"id", "name", "surname", "login"})
+@ToString(of = {"id", "name", "surname", "login", "roles"})
 @Entity
 @Table(name = "customer")
 public class Customer implements UserDetails {
