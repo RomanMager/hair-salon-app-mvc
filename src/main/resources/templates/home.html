@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="https://www.thymeleaf.org">
+<head th:replace="~{fragments/head :: headFragment}">
+    <title id="pageTitle">Home Page</title>
+</head>
+<body>
+    <div th:remove="tag" th:replace="~{fragments/navbar :: navbar}"></div>
+    <br>
+    <br>
+
+    <div class="container">
+        <h1>Добро пожаловать!</h1>
+
+        <div>
+            <img width="100%" height="auto" src="images/inside.jpg" alt="">
+        </div>
+        <br />
+        <div>
+            <a class="btn btn-primary" th:href="@{/procedure/signup}">Записаться на стрижку</a>
+        </div>
+    </div>
+
+    <div th:remove="tag" th:replace="~{fragments/footer :: footer}"></div>
+</body>
+</html>
