@@ -17,19 +17,9 @@
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <ul class="navbar-nav">
                 <li>
-                    <a class="nav-item nav-link active" sec:authorize="hasAuthority('ADMIN')" th:href="@{/projects}">
+                    <a class="nav-item nav-link active" sec:authorize="hasAuthority('ADMIN')" th:href="@{/admin}">
                         <!-- TODO: Добавить действия для админа-->
-                        Sample link 1
-                    </a>
-                </li>
-                <li>
-                    <a class="nav-item nav-link active" sec:authorize="hasAuthority('ADMIN')" th:href="@{/employee/all}">
-                        Sample link 2
-                    </a>
-                </li>
-                <li>
-                    <a class="nav-item nav-link active" sec:authorize="hasAuthority('USER')" th:href="@{/profile/}">
-                        Profile
+                        Админка
                     </a>
                 </li>
             </ul>
