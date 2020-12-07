@@ -13,7 +13,7 @@
     <div class="container">
         <form class=""
               method="post"
-              th:action="@{/admin/employees/{id}/update (id = ${employee.id})}"
+              th:action="@{/admin/employees/update/{id} (id = ${employee.id})}"
               th:object="${employee}">
             <div class="form-group">
                 <label for="employee-name">Имя</label>

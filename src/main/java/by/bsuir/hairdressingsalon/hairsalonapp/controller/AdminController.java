@@ -72,7 +72,7 @@ public class AdminController {
         return "redirect:/admin/employees";
     }
 
-    @GetMapping("/employees/{id}/edit")
+    @GetMapping("/employees/edit/{id}")
     public String showEmployeeEditForm(@PathVariable Long id, Model model) {
         Optional<Employee> employee = employeeService.getEmployeeById(id);
         List<SalonProcedure> procedures = procedureService.getAllProcedures();
@@ -85,7 +85,7 @@ public class AdminController {
         return "admin/employee-edit";
     }
 
-    @PostMapping("/employees/{id}/update")
+    @PostMapping("/employees/update/{id}")
     public String updateEmployee(@PathVariable Long id, Employee updatedEmployee, Model model) {
         updatedEmployee.setId(id);
         employeeService.save(updatedEmployee);
