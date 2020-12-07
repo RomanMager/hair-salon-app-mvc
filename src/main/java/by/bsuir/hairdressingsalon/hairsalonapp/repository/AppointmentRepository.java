@@ -3,6 +3,7 @@ package by.bsuir.hairdressingsalon.hairsalonapp.repository;
 import by.bsuir.hairdressingsalon.hairsalonapp.entity.Customer;
 import by.bsuir.hairdressingsalon.hairsalonapp.entity.Employee;
 import by.bsuir.hairdressingsalon.hairsalonapp.entity.ProcedureAppointment;
+import by.bsuir.hairdressingsalon.hairsalonapp.entity.SalonProcedure;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

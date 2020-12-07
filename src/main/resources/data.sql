@@ -63,3 +63,11 @@ VALUES (1, 1),
        (3, 1),
        (3, 2),
        (3, 3);
+
+INSERT INTO procedure_appointment(id, appointment_date, appointment_time, customer_id, procedure_id,
+                                  performing_employee_id)
+VALUES (1, '2020-12-13', '13:00:00', 2, 1, 1);
+
+INSERT INTO procedure_appointment(id, appointment_date, appointment_time, customer_id, procedure_id,
+                                  performing_employee_id)
+VALUES (2, '2020-12-18', '20:00:00', 2, 3, 2);
