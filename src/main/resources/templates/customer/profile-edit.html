@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+
+<head th:replace="~{fragments/head :: headFragment}">
+    <title id="pageTitle">ChangeProfile</title>
+</head>
+
+<body>
+<div class="container">
+    <br>
+    <a class="btn btn-info btn-md btn-block" th:href="@{/}">Go to the home page</a>
+    <br>
+
+    <h1>Редактировать профиль</h1>
+
+    <form method="post" th:action="@{/registration}" th:object="${customer}">
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="first-name">First Name</label>
+                <input class="form-control" id="first-name"
+                       placeholder="John"
+                       th:field="*{name}" type="text">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="last-name">Last Name</label>
+                <input class="form-control" id="last-name"
+                       placeholder="Doe"
+                       th:field="*{surname}" type="text">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="email">Email address</label>
+            <input class="form-control" id="email"
+                   placeholder="example@email.com"
+                   th:field="*{email}" type="email">
+            <label class="alert alert-danger" for="email" th:errors="*{email}"
+                   th:if="${#fields.hasErrors('email')}">
+            </label>
+            <div class="alert alert-danger" th:if="${registrationError}" th:text="${registrationError}"></div>
+        </div>
+
+        <div class="form-group">
+            <label for="login">Login</label>
+            <input class="form-control" id="login"
+                   th:field="*{login}" type="text">
+            <label class="alert alert-danger" for="login" th:errors="*{login}"
+                   th:if="${#fields.hasErrors('login')}">
+            </label>
+            <div class="alert alert-danger" th:if="${registrationError}" th:text="${registrationError}"></div>
+        </div>
+
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input class="form-control" id="password"
+                   th:field="*{password}" type="password">
+            <label class="alert alert-danger" for="password" th:errors="*{password}"
+                   th:if="${#fields.hasErrors('password')}">
+            </label>
+        </div>
+
+        <div class="form-group">
+            <label for="passwordConfirmation">Confirm Password</label>
+            <input class="form-control" id="passwordConfirmation"
+                   name="passwordConfirmation" type="password">
+        </div>
+        <div class="alert alert-danger" th:if="${passwordError}" th:text="${passwordError}">
+        </div>
+
+        <button class="btn btn-primary" type="submit" th:href="@{/customer/edit}">Ok</button>
+    </form>
+
+    <br>
+
+</div>
+
+<div th:remove="tag" th:replace="~{fragments/footer :: footer}"></div>
+</body>
+</html>
