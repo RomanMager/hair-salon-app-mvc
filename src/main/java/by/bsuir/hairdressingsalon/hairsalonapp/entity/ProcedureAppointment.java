@@ -33,20 +33,17 @@ public class ProcedureAppointment {
     private LocalTime startTime;
 
     @JsonManagedReference
-    @ManyToOne(fetch = FetchType.EAGER,
-               cascade = {CascadeType.DETACH, CascadeType.REFRESH, CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "procedure_id")
     private SalonProcedure salonProcedure;
 
-    @ManyToOne(fetch = FetchType.EAGER,
-               cascade = {CascadeType.DETACH, CascadeType.REFRESH, CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "customer_id")
     private Customer signedUpCustomer;
 
     // @OneToOne(cascade = {CascadeType.DETACH, CascadeType.REMOVE}, orphanRemoval = true)
     // @LazyToOne(LazyToOneOption.PROXY)
-    @ManyToOne(fetch = FetchType.EAGER,
-               cascade = {CascadeType.DETACH, CascadeType.REFRESH, CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "performing_employee_id", referencedColumnName = "id", nullable = false)
     private Employee performingEmployee;
 
