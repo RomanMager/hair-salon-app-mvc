@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 <html lang="en"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+      xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{fragments/head :: headFragment}">
-    <title id="pageTitle">Запись на процедуру</title>
+    <title id="pageTitle">Изменить запись</title>
 </head>
 
 <body>
@@ -12,10 +11,22 @@
     <br>
 
     <div class="container">
-        <h1>Записаться</h1>
+        <h1>Изменить запись</h1>
+
+        <h4 th:text="'Изменить запись для: ' + ${customer.name} + '&nbsp;' + ${customer.surname}"></h4>
         <form method="post"
-              th:action="@{/procedure/signup}"
+              th:action="@{/admin/appointments/update/{id} (id = ${appointment.id})}"
               th:object="${appointment}">
+            <!--<div class="form-group">-->
+            <!--    <label for="customer">Выбрать мастера</label>-->
+            <!--    <select class="form-control" id="customer" name="" th:field="*{performingEmployee}">-->
+            <!--        <option th:each="employee : ${employees}"-->
+            <!--                th:text="${employee.name} + ' ' + ${employee.surname}"-->
+            <!--                th:value="${employee.id}">-->
+            <!--        </option>-->
+            <!--    </select>-->
+            <!--</div>-->
+
             <div class="form-group">
                 <label for="employee-selector">Выбрать мастера</label>
                 <select class="form-control" id="employee-selector" name="" th:field="*{performingEmployee}">
@@ -49,5 +60,6 @@
             <button class="btn btn-success" type="submit">Записаться</button>
         </form>
     </div>
+
 </body>
 </html>

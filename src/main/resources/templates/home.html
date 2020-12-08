@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       xmlns:th="https://www.thymeleaf.org">
 <head th:replace="~{fragments/head :: headFragment}">
     <title id="pageTitle">Home Page</title>
@@ -16,7 +18,7 @@
         <!--    <img width="100%" height="auto" src="images/inside.jpg" alt="">-->
         <!--</div>-->
         <br />
-        <div>
+        <div sec:authorize="hasAuthority('USER')">
             <a class="btn btn-primary" th:href="@{/procedure/signup}">Записаться на стрижку</a>
         </div>
     </div>

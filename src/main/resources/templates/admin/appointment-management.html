@@ -30,13 +30,12 @@
                     <td th:text="${appointment.performingEmployee.name} + ' ' + ${appointment.performingEmployee.surname}"></td>
                     <td th:text="${appointment.salonProcedure.name}"></td>
                     <td>
-                        <!--TODO: Изменить ссылки-->
-                        <a class="btn btn-warning" th:href="@{/admin/employees/}">
+                        <a class="btn btn-warning"
+                           th:href="@{/admin/appointments/edit/{aId}/customer/{cId} (aId = ${appointment.id}, cId = ${appointment.signedUpCustomer.id})}">
                             Изменить запись
                         </a>
-
-                        <!--TODO: Изменить ссылки-->
-                        <a class="btn btn-danger" th:href="@{/admin/employees/}">
+                        <span>&nbsp;</span>
+                        <a class="btn btn-danger" th:href="@{/admin/appointments/cancel/{id} (id = ${appointment.id})}">
                             Отменить запись
                         </a>
                     </td>

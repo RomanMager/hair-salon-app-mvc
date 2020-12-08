@@ -1,10 +1,7 @@
 package by.bsuir.hairdressingsalon.hairsalonapp.controller;
 
 import by.bsuir.hairdressingsalon.hairsalonapp.entity.*;
-import by.bsuir.hairdressingsalon.hairsalonapp.service.AppointmentService;
-import by.bsuir.hairdressingsalon.hairsalonapp.service.EmployeeService;
-import by.bsuir.hairdressingsalon.hairsalonapp.service.GenderService;
-import by.bsuir.hairdressingsalon.hairsalonapp.service.SalonProcedureService;
+import by.bsuir.hairdressingsalon.hairsalonapp.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -33,7 +30,8 @@ public class AdminController {
     public AdminController(EmployeeService employeeService,
                            SalonProcedureService procedureService,
                            GenderService genderService,
-                           AppointmentService appointmentService) {
+                           AppointmentService appointmentService,
+                           CustomerService customerService) {
         this.employeeService = employeeService;
         this.procedureService = procedureService;
         this.genderService = genderService;
@@ -110,4 +108,36 @@ public class AdminController {
         return "admin/appointment-management";
     }
 
+    @GetMapping("/appointments/edit/{aId}/customer/{cId}")
+    public String showAppointmentEditForm(@PathVariable(name = "aId") Long appointmentId,
+                                          @PathVariable(name = "cId") Long customerId,
+                                          Model model) {
+        ProcedureAppointment appointment = appointmentService
+                .getAppointmentById(appointmentId)
+                .orElseThrow();
+        Customer customer = appointment.getSignedUpCustomer();
+
+        List<SalonProcedure> procedures = procedureService.getAllProcedures();
+        List<Employee> employees = employeeService.getAllEmployees();
+
+        model.addAttribute("appointment", appointment);
+        model.addAttribute("procedures", procedures);
+        model.addAttribute("employees", employees);
+        model.addAttribute("customer", customer);
+
+        return "admin/appointment-edit-admin";
+    }
+
+    @PostMapping("/appointments/update/{id}")
+    public String updateAppointment(@AuthenticationPrincipal Customer customer,
+                                    @PathVariable Long id,
+                                    ProcedureAppointment updatedAppointment,
+                                    Model model) {
+        updatedAppointment.setId(id);
+        updatedAppointment.setSignedUpCustomer(customer);
+
+        appointmentService.save(updatedAppointment);
+
+        return "redirect:/admin/appointment-management";
+    }
 }
