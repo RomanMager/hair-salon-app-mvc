@@ -1,7 +1,6 @@
 package by.bsuir.hairdressingsalon.hairsalonapp.service;
 
 import by.bsuir.hairdressingsalon.hairsalonapp.entity.Employee;
-import by.bsuir.hairdressingsalon.hairsalonapp.entity.ProcedureAppointment;
 import by.bsuir.hairdressingsalon.hairsalonapp.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

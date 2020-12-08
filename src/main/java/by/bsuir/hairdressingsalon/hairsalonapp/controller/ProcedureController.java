@@ -5,6 +5,7 @@ import by.bsuir.hairdressingsalon.hairsalonapp.entity.Employee;
 import by.bsuir.hairdressingsalon.hairsalonapp.entity.ProcedureAppointment;
 import by.bsuir.hairdressingsalon.hairsalonapp.entity.SalonProcedure;
 import by.bsuir.hairdressingsalon.hairsalonapp.service.AppointmentService;
+import by.bsuir.hairdressingsalon.hairsalonapp.service.CustomerService;
 import by.bsuir.hairdressingsalon.hairsalonapp.service.EmployeeService;
 import by.bsuir.hairdressingsalon.hairsalonapp.service.SalonProcedureService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,14 +25,17 @@ public class ProcedureController {
     private final AppointmentService appointmentService;
     private final SalonProcedureService procedureService;
     private final EmployeeService employeeService;
+    private final CustomerService customerService;
 
     @Autowired
     public ProcedureController(AppointmentService appointmentService,
                                SalonProcedureService procedureService,
-                               EmployeeService employeeService) {
+                               EmployeeService employeeService,
+                               CustomerService customerService) {
         this.appointmentService = appointmentService;
         this.procedureService = procedureService;
         this.employeeService = employeeService;
+        this.customerService = customerService;
     }
 
     @GetMapping("/signup")

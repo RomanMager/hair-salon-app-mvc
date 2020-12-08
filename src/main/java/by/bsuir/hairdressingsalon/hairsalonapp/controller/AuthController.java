@@ -1,7 +1,7 @@
 package by.bsuir.hairdressingsalon.hairsalonapp.controller;
 
-import by.bsuir.hairdressingsalon.hairsalonapp.service.CustomerService;
 import by.bsuir.hairdressingsalon.hairsalonapp.entity.Customer;
+import by.bsuir.hairdressingsalon.hairsalonapp.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

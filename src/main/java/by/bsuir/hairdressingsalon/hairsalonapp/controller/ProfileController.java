@@ -1,6 +1,9 @@
 package by.bsuir.hairdressingsalon.hairsalonapp.controller;
 
-import by.bsuir.hairdressingsalon.hairsalonapp.entity.*;
+import by.bsuir.hairdressingsalon.hairsalonapp.entity.Customer;
+import by.bsuir.hairdressingsalon.hairsalonapp.entity.Employee;
+import by.bsuir.hairdressingsalon.hairsalonapp.entity.ProcedureAppointment;
+import by.bsuir.hairdressingsalon.hairsalonapp.entity.SalonProcedure;
 import by.bsuir.hairdressingsalon.hairsalonapp.service.AppointmentService;
 import by.bsuir.hairdressingsalon.hairsalonapp.service.CustomerService;
 import by.bsuir.hairdressingsalon.hairsalonapp.service.EmployeeService;

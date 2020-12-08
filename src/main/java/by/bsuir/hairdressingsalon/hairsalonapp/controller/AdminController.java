@@ -138,6 +138,6 @@ public class AdminController {
 
         appointmentService.save(updatedAppointment);
 
-        return "redirect:/admin/appointment-management";
+        return "redirect:/admin/appointments";
     }
 }
