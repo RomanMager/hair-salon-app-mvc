@@ -9,10 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -26,6 +23,7 @@ public class AdminController {
     private final SalonProcedureService procedureService;
     private final GenderService genderService;
     private final AppointmentService appointmentService;
+    private final CustomerService customerService;
 
     @Autowired
     public AdminController(EmployeeService employeeService,
@@ -37,6 +35,7 @@ public class AdminController {
         this.procedureService = procedureService;
         this.genderService = genderService;
         this.appointmentService = appointmentService;
+        this.customerService = customerService;
     }
 
     @GetMapping
@@ -141,9 +140,9 @@ public class AdminController {
     }
 
     @PostMapping("/appointments/update/{id}")
-    public String updateAppointment(@AuthenticationPrincipal Customer customer,
-                                    @PathVariable Long id,
+    public String updateAppointment(@PathVariable Long id,
                                     ProcedureAppointment updatedAppointment,
+                                    @RequestParam(value = "customerId") Long customerId,
                                     BindingResult bindingResult,
                                     Model model) {
         if (bindingResult.hasErrors() || bindingResult.hasFieldErrors()) {
@@ -151,6 +150,8 @@ public class AdminController {
         }
 
         updatedAppointment.setId(id);
+
+        Customer customer = customerService.getCustomerById(customerId).orElseThrow();
         updatedAppointment.setSignedUpCustomer(customer);
 
         appointmentService.save(updatedAppointment);

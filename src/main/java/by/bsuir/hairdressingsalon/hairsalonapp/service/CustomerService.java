@@ -37,6 +37,10 @@ public class CustomerService implements UserDetailsService {
         return customerRepository.findByLoginOrEmail(login, email);
     }
 
+    public Optional<Customer> getCustomerById(Long id) {
+        return customerRepository.findById(id);
+    }
+
     public Customer save(Customer customer) {
         customer.setPassword(passwordEncoder.encode(customer.getPassword()));
         customer.setRoles(Collections.singleton(Role.USER));
@@ -53,7 +57,7 @@ public class CustomerService implements UserDetailsService {
         }
 
         if (!original.getSurname().equals(updated.getSurname())) {
-            original.setSurname(updated.getSurname()) ;
+            original.setSurname(updated.getSurname());
         }
 
         if (!original.getLogin().equals(updated.getLogin())) {
