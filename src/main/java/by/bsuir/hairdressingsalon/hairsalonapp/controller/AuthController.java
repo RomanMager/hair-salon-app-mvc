@@ -41,12 +41,12 @@ public class AuthController {
         Optional<Customer> customerFromDB = customerService
                 .findByLoginOrEmail(customer.getLogin(), customer.getEmail());
         if (customerFromDB.isPresent()) {
-            model.addAttribute("registrationError", "This username or email have already been taken!");
+            model.addAttribute("registrationError", "Этот логин уже используется");
             return "security/registration";
         }
 
         if (customer.getPassword() != null && !customer.getPassword().equals(passwordConfirmation)) {
-            model.addAttribute("passwordError", "Passwords are not equal!");
+            model.addAttribute("passwordError", "Пароли не совпадают");
             return "security/registration";
         }
 

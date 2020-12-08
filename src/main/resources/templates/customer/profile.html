@@ -30,12 +30,10 @@
                     <td th:text="${appointment.date} + ' - ' + ${appointment.startTime}"></td>
                     <td th:text="${appointment.performingEmployee.name} + ' ' + ${appointment.performingEmployee.surname}"></td>
                     <td>
-                        <!--TODO: Изменить ссылки-->
                         <a class="btn btn-warning" th:href="@{/profile/appointments/edit/{id} (id = ${appointment.id})}">
                             Изменить запись
                         </a>
 
-                        <!--TODO: Изменить ссылки-->
                         <a class="btn btn-danger" th:href="@{/profile/appointments/cancel/{id} (id = ${appointment.id})}">
                             Отказаться от записи
                         </a>

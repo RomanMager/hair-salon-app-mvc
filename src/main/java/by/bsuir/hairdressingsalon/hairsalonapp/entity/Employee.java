@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.*;
+import javax.validation.constraints.*;
+import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -22,12 +24,19 @@ public class Employee {
     @Column(name = "id")
     private Long id;
 
+    @NotEmpty
+    @Size(min = 2, message = "Минимум 2 символа")
     @Column(name = "name")
     private String name;
 
+    @NotEmpty
+    @Size(min = 2, message = "Минимум 2 символа")
     @Column(name = "surname")
     private String surname;
 
+    @NotNull
+    @Positive
+    @Digits(integer = 100000, fraction = 2)
     @Column(name = "payrate")
     private Double payRate;
 

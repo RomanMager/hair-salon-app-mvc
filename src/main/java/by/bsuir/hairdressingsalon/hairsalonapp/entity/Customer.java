@@ -9,6 +9,10 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -26,19 +30,30 @@ public class Customer implements UserDetails {
     @Column(name = "id")
     private Long id;
 
+    @NotEmpty
+    @Size(min = 3, message = "Длина должна быть минимум 3 символа")
     @Column(name = "login", nullable = false, unique = true)
     private String login;
 
+    @NotEmpty
+    @Email
+    @Size(min = 5)
     @Column(name = "customer_email", nullable = false, unique = true)
     private String email;
 
     @JsonIgnore
+    @NotEmpty
+    @Size(min = 5, message = "Минимум 5 символов")
     @Column(name = "customer_password", nullable = false)
     private String password;
 
+    @NotEmpty
+    @Size(min = 2)
     @Column(name = "customer_name")
     private String name;
 
+    @NotEmpty
+    @Size(min = 3)
     @Column(name = "customer_surname")
     private String surname;
 
