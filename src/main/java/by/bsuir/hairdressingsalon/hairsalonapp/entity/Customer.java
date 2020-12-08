@@ -9,10 +9,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -30,30 +27,28 @@ public class Customer implements UserDetails {
     @Column(name = "id")
     private Long id;
 
-    @NotEmpty
     @Size(min = 3, message = "Длина должна быть минимум 3 символа")
     @Column(name = "login", nullable = false, unique = true)
     private String login;
 
-    @NotEmpty
     @Email
-    @Size(min = 5)
+    @Size(min = 5, message = "Введите корректный имейл")
     @Column(name = "customer_email", nullable = false, unique = true)
     private String email;
 
     @JsonIgnore
-    @NotEmpty
+    @NotEmpty(message = "Пароль не может быть пустым")
     @Size(min = 5, message = "Минимум 5 символов")
     @Column(name = "customer_password", nullable = false)
     private String password;
 
-    @NotEmpty
-    @Size(min = 2)
+    @Size(min = 2, message = "Длина должна быть минимум 3 символа")
+    @Pattern(regexp = "^[А-Яа-я]*$", message = "Имя не может содержать числа и символы")
     @Column(name = "customer_name")
     private String name;
 
-    @NotEmpty
-    @Size(min = 3)
+    @Size(min = 3, message = "Длина должна быть минимум 3 символа")
+    @Pattern(regexp = "^[А-Яа-я]*$", message = "Фамилия не может содержать числа и символы")
     @Column(name = "customer_surname")
     private String surname;
 
@@ -70,9 +65,9 @@ public class Customer implements UserDetails {
     @JsonIgnore
     @OneToMany(
             mappedBy = "signedUpCustomer",
+            fetch = FetchType.EAGER,
             cascade = CascadeType.ALL,
-            orphanRemoval = true,
-            fetch = FetchType.EAGER
+            orphanRemoval = true
     )
     private Set<ProcedureAppointment> scheduledAppointments = new HashSet<>();
 

@@ -17,16 +17,6 @@
         <form method="post"
               th:action="@{/admin/appointments/update/{id} (id = ${appointment.id})}"
               th:object="${appointment}">
-            <!--<div class="form-group">-->
-            <!--    <label for="customer">Выбрать мастера</label>-->
-            <!--    <select class="form-control" id="customer" name="" th:field="*{performingEmployee}">-->
-            <!--        <option th:each="employee : ${employees}"-->
-            <!--                th:text="${employee.name} + ' ' + ${employee.surname}"-->
-            <!--                th:value="${employee.id}">-->
-            <!--        </option>-->
-            <!--    </select>-->
-            <!--</div>-->
-
             <div class="form-group">
                 <label for="employee-selector">Выбрать мастера</label>
                 <select class="form-control" id="employee-selector" name="" th:field="*{performingEmployee}">

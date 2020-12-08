@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.FutureOrPresent;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -22,6 +23,7 @@ public class ProcedureAppointment {
     @Column(name = "id")
     private Long id;
 
+    @FutureOrPresent(message = "Вы не можете записаться на прошедшее число.")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name = "appointment_date")
     private LocalDate date;
@@ -31,17 +33,20 @@ public class ProcedureAppointment {
     private LocalTime startTime;
 
     @JsonManagedReference
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER,
+               cascade = {CascadeType.DETACH, CascadeType.REFRESH, CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "procedure_id")
     private SalonProcedure salonProcedure;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER,
+               cascade = {CascadeType.DETACH, CascadeType.REFRESH, CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "customer_id")
     private Customer signedUpCustomer;
 
     // @OneToOne(cascade = {CascadeType.DETACH, CascadeType.REMOVE}, orphanRemoval = true)
     // @LazyToOne(LazyToOneOption.PROXY)
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER,
+               cascade = {CascadeType.DETACH, CascadeType.REFRESH, CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "performing_employee_id", referencedColumnName = "id", nullable = false)
     private Employee performingEmployee;
 

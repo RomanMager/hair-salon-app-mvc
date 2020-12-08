@@ -88,8 +88,10 @@ public class AdminController {
     }
 
     @PostMapping("/employees/update/{id}")
-    public String updateEmployee(@PathVariable Long id, @Validated Employee updatedEmployee,
-                                 BindingResult bindingResult, Model model) {
+    public String updateEmployee(@PathVariable Long id,
+                                 @Validated Employee updatedEmployee,
+                                 BindingResult bindingResult,
+                                 Model model) {
         if (bindingResult.hasErrors() || bindingResult.hasFieldErrors()) {
             List<SalonProcedure> procedures = procedureService.getAllProcedures();
             List<Gender> genders = genderService.getAllGenders();
@@ -107,7 +109,6 @@ public class AdminController {
 
     @GetMapping("/employees/delete/{id}")
     public String deleteEmployee(@PathVariable Long id, Model model) {
-        // Employee employee = employeeService.getEmployeeById(id).orElseThrow();
         employeeService.deleteById(id);
 
         return "redirect:/admin/employees";
@@ -145,11 +146,23 @@ public class AdminController {
     public String updateAppointment(@AuthenticationPrincipal Customer customer,
                                     @PathVariable Long id,
                                     ProcedureAppointment updatedAppointment,
+                                    BindingResult bindingResult,
                                     Model model) {
+        if (bindingResult.hasErrors() || bindingResult.hasFieldErrors()) {
+            return "admin/appointment-edit-admin";
+        }
+
         updatedAppointment.setId(id);
         updatedAppointment.setSignedUpCustomer(customer);
 
         appointmentService.save(updatedAppointment);
+
+        return "redirect:/admin/appointments";
+    }
+
+    @GetMapping("/appointments/cancel/{id}")
+    public String cancelAppointment(@AuthenticationPrincipal Customer customer, @PathVariable Long id) {
+        appointmentService.cancelAppointment(customer, id);
 
         return "redirect:/admin/appointments";
     }

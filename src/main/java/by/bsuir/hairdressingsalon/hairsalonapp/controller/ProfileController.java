@@ -13,11 +13,11 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -59,7 +59,25 @@ public class ProfileController {
     }
 
     @PostMapping
-    public String updateProfile(@AuthenticationPrincipal Customer customer, Customer updated, Model model) {
+    public String updateProfile(@RequestParam(name = "passwordConfirmation") String passwordConfirmation,
+                                @AuthenticationPrincipal Customer customer,
+                                @Validated Customer updated,
+                                BindingResult bindingResult,
+                                Model model) {
+        if (bindingResult.hasFieldErrors("name") ||
+                bindingResult.hasFieldErrors("surname") ||
+                bindingResult.hasFieldErrors("email") ||
+                bindingResult.hasFieldErrors("login")) {
+            return "customer/profile-edit";
+        }
+
+        if (!passwordConfirmation.isBlank()
+                && customer.getPassword() != null
+                && !customer.getPassword().equals(passwordConfirmation)) {
+            model.addAttribute("passwordError", "Пароли не совпадают");
+            return "customer/profile-edit";
+        }
+
         customerService.updateProfile(customer, updated);
 
         model.addAttribute("customer", updated);
@@ -84,8 +102,13 @@ public class ProfileController {
     @PostMapping("/appointments/update/{id}")
     public String updateAppointment(@AuthenticationPrincipal Customer customer,
                                     @PathVariable Long id,
-                                    ProcedureAppointment updatedAppointment,
+                                    @Validated ProcedureAppointment updatedAppointment,
+                                    BindingResult bindingResult,
                                     Model model) {
+        if (bindingResult.hasErrors() || bindingResult.hasFieldErrors()) {
+            return "customer/appointment-edit";
+        }
+
         updatedAppointment.setId(id);
         updatedAppointment.setSignedUpCustomer(customer);
 

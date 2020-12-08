@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -31,7 +32,7 @@ public class AuthController {
 
     @PostMapping(value = "/registration")
     public String registerUser(@RequestParam(name = "passwordConfirmation") String passwordConfirmation,
-                               @Valid Customer customer,
+                               @Validated Customer customer,
                                BindingResult bindingResult,
                                Model model) {
         if (bindingResult.hasErrors() || bindingResult.hasFieldErrors()) {
@@ -41,7 +42,7 @@ public class AuthController {
         Optional<Customer> customerFromDB = customerService
                 .findByLoginOrEmail(customer.getLogin(), customer.getEmail());
         if (customerFromDB.isPresent()) {
-            model.addAttribute("registrationError", "Этот логин уже используется");
+            model.addAttribute("registrationError", "Этот логин/имейл уже используется");
             return "security/registration";
         }
 

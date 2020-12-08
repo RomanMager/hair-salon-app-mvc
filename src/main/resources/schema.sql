@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS employee
     gender_id BIGINT      NOT NULL,
     --    role_id   BIGINT      NOT NULL,
 
-    FOREIGN KEY (gender_id) REFERENCES gender (id)
+    FOREIGN KEY (gender_id) REFERENCES gender (id) ON DELETE CASCADE
     --   FOREIGN KEY (role_id) REFERENCES role (id)
 );
 
@@ -86,9 +86,9 @@ CREATE TABLE IF NOT EXISTS procedure_appointment
     procedure_id           BIGINT NOT NULL,
     performing_employee_id BIGINT NOT NULL,
 
-    FOREIGN KEY (customer_id) REFERENCES customer (id),
-    FOREIGN KEY (procedure_id) REFERENCES salon_procedure (id),
-    FOREIGN KEY (performing_employee_id) REFERENCES employee (id)
+    FOREIGN KEY (customer_id) REFERENCES customer (id) ON DELETE CASCADE,
+    FOREIGN KEY (procedure_id) REFERENCES salon_procedure (id) ON DELETE CASCADE,
+    FOREIGN KEY (performing_employee_id) REFERENCES employee (id) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS employee_procedure
@@ -96,8 +96,8 @@ CREATE TABLE IF NOT EXISTS employee_procedure
     employee_id  BIGINT NOT NULL,
     procedure_id BIGINT NOT NULL,
 
-    FOREIGN KEY (employee_id) REFERENCES employee (id),
-    FOREIGN KEY (procedure_id) REFERENCES salon_procedure (id)
+    FOREIGN KEY (employee_id) REFERENCES employee (id) ON DELETE CASCADE,
+    FOREIGN KEY (procedure_id) REFERENCES salon_procedure (id) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS user_role
@@ -105,5 +105,5 @@ CREATE TABLE IF NOT EXISTS user_role
     user_id BIGINT NOT NULL,
     roles   VARCHAR(20),
 
-    FOREIGN KEY (user_id) REFERENCES customer (id)
+    FOREIGN KEY (user_id) REFERENCES customer (id) ON DELETE CASCADE
 );

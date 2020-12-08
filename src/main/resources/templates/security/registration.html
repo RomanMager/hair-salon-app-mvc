@@ -20,12 +20,22 @@
                     <input class="form-control" id="name"
                            placeholder="John"
                            th:field="*{name}" type="text">
+                    <label class="alert alert-danger" for="name"
+                           th:errors="*{name}"
+                           th:if="${#fields.hasErrors('name')}">
+                        Ошибка при вводе имени
+                    </label>
                 </div>
                 <div class="form-group col-md-6">
                     <label for="surname">Фамилия</label>
                     <input class="form-control" id="surname"
                            placeholder="Doe"
                            th:field="*{surname}" type="text">
+                    <label class="alert alert-danger" for="surname"
+                           th:errors="*{surname}"
+                           th:if="${#fields.hasErrors('surname')}">
+                        Ошибка при вводе имени
+                    </label>
                 </div>
             </div>
 

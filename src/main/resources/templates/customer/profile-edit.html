@@ -8,7 +8,7 @@
 <body>
     <div class="container">
         <br>
-        <a class="btn btn-info btn-md btn-block" th:href="@{/}">Go to the home page</a>
+        <a class="btn btn-info btn-md btn-block" th:href="@{/}">Отменить и вернуться на домашнюю страницу</a>
         <br>
 
         <h1>Редактировать профиль</h1>
@@ -20,13 +20,25 @@
                     <input class="form-control" id="name"
                            placeholder="Иван"
                            th:field="*{name}" type="text">
+                    <label class="alert alert-danger" for="name"
+                           th:errors="*{name}"
+                           th:if="${#fields.hasErrors('name')}">
+                        Ошибка при вводе имени
+                    </label>
                 </div>
+
                 <div class="form-group col-md-6">
                     <label for="surname">Фамилия</label>
                     <input class="form-control" id="surname"
                            placeholder="Иванов"
                            th:field="*{surname}" type="text">
+                    <label class="alert alert-danger" for="surname"
+                           th:errors="*{surname}"
+                           th:if="${#fields.hasErrors('surname')}">
+                        Ошибка при вводе фамилии
+                    </label>
                 </div>
+
             </div>
 
             <div class="form-group">
@@ -34,7 +46,8 @@
                 <input class="form-control" id="email"
                        placeholder="example@email.com"
                        th:field="*{email}" type="email">
-                <label class="alert alert-danger" for="email" th:errors="*{email}"
+                <label class="alert alert-danger" for="email"
+                       th:errors="*{email}"
                        th:if="${#fields.hasErrors('email')}">
                 </label>
                 <!--<div class="alert alert-danger" th:if="${registrationError}" th:text="${registrationError}"></div>-->
@@ -44,7 +57,8 @@
                 <label for="login">Логин</label>
                 <input class="form-control" id="login"
                        th:field="*{login}" type="text">
-                <label class="alert alert-danger" for="login" th:errors="*{login}"
+                <label class="alert alert-danger" for="login"
+                       th:errors="*{login}"
                        th:if="${#fields.hasErrors('login')}">
                 </label>
                 <!--<div class="alert alert-danger" th:if="${registrationError}" th:text="${registrationError}"></div>-->
@@ -53,8 +67,9 @@
             <div class="form-group">
                 <label for="password">Пароль</label>
                 <input class="form-control" id="password"
-                       th:field="*{password}" type="password">
-                <label class="alert alert-danger" for="password" th:errors="*{password}"
+                       th:field="*{password}" th:value="*{password}" type="password">
+                <label class="alert alert-danger" for="password"
+                       th:errors="*{password}"
                        th:if="${#fields.hasErrors('password')}">
                 </label>
             </div>
@@ -63,9 +78,11 @@
                 <label for="passwordConfirmation">Повторите пароль</label>
                 <input class="form-control" id="passwordConfirmation"
                        name="passwordConfirmation" type="password">
+                <label class="alert alert-danger" for="passwordConfirmation"
+                       th:if="${passwordError}"
+                       th:text="${passwordError}">
+                </label>
             </div>
-            <!--<div class="alert alert-danger" th:if="${passwordError}" th:text="${passwordError}">-->
-            <!--</div>-->
 
             <button class="btn btn-primary" th:href="@{/profile/}" type="submit">Подтвердить</button>
         </form>

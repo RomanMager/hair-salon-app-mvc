@@ -44,19 +44,16 @@ public class Employee {
     @JoinColumn(name = "gender_id", referencedColumnName = "id")
     private Gender gender;
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToMany(cascade = CascadeType.DETACH, fetch = FetchType.LAZY)
     @JoinTable(name = "employee_procedure",
                joinColumns = @JoinColumn(name = "employee_id"),
                inverseJoinColumns = @JoinColumn(name = "procedure_id"))
     private Set<SalonProcedure> canPerformProcedures = new HashSet<>();
 
-
-    // @OneToOne(orphanRemoval = true)
-    // @JoinColumn(name = "id", referencedColumnName = "performing_employee_id")
     @OneToMany(
             mappedBy = "performingEmployee",
+            cascade = CascadeType.ALL,
             orphanRemoval = true
-            // cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REMOVE, CascadeType.REFRESH}
     )
     private Set<ProcedureAppointment> employeeAppointments = new HashSet<>();
 }
