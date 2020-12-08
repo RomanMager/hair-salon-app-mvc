@@ -34,8 +34,8 @@ INSERT INTO customer(login,
 VALUES ('maxim',
         'maxim.katz@gmail.com',
         '$2y$08$URqfgP121b153plrgO2Dhe4S30oXw3xD0fL2Pjp/kPr9N8SzZAJee',
-        'Максим',
-        'Кац',
+        'максим',
+        'кац',
         '',
         TRUE);
 

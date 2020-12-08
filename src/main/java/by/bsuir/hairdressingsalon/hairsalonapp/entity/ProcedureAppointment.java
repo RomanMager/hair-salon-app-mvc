@@ -4,8 +4,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.LazyToOne;
-import org.hibernate.annotations.LazyToOneOption;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -23,9 +22,11 @@ public class ProcedureAppointment {
     @Column(name = "id")
     private Long id;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name = "appointment_date")
     private LocalDate date;
 
+    @DateTimeFormat(pattern = "HH:mm")
     @Column(name = "appointment_time")
     private LocalTime startTime;
 
@@ -38,9 +39,10 @@ public class ProcedureAppointment {
     @JoinColumn(name = "customer_id")
     private Customer signedUpCustomer;
 
-    @OneToOne
-    @LazyToOne(LazyToOneOption.PROXY)
-    @JoinColumn(name = "performing_employee_id", referencedColumnName = "id")
+    // @OneToOne(cascade = {CascadeType.DETACH, CascadeType.REMOVE}, orphanRemoval = true)
+    // @LazyToOne(LazyToOneOption.PROXY)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "performing_employee_id", referencedColumnName = "id", nullable = false)
     private Employee performingEmployee;
 
     @Override

@@ -30,7 +30,7 @@
                     <th>Имя работника</th>
                     <th>Фамилия работника</th>
                     <th>Зарплата</th>
-                    <th>Процедуры, который может выполнять</th>
+                    <th>Процедуры, которые может выполнять</th>
                     <th></th>
                 </tr>
                 </thead>
@@ -50,8 +50,7 @@
                             Изменить
                         </a>
 
-                        <!--TODO: Измени href как у меня выше сделано, только вместо edit будет delete-->
-                        <a class="btn btn-danger" th:href="@{/admin/employees/}">
+                        <a class="btn btn-danger" th:href="@{/admin/employees/delete/{id} (id = ${employee.id})}">
                             Удалить
                         </a>
                     </td>

@@ -45,4 +45,28 @@ public class CustomerService implements UserDetailsService {
         customerRepository.save(customer);
         return customer;
     }
+
+    public void updateProfile(Customer original, Customer updated) {
+        if (!original.getName().equals(updated.getName())) {
+            original.setName(updated.getName());
+        }
+
+        if (!original.getSurname().equals(updated.getSurname())) {
+            original.setSurname(updated.getSurname()) ;
+        }
+
+        if (!original.getLogin().equals(updated.getLogin())) {
+            original.setLogin(updated.getLogin());
+        }
+
+        if (!updated.getPassword().isEmpty() && !original.getPassword().equals(updated.getPassword())) {
+            original.setPassword(passwordEncoder.encode(updated.getPassword()));
+        }
+
+        if (!original.getEmail().equals(updated.getEmail())) {
+            original.setEmail(updated.getEmail());
+        }
+
+        customerRepository.save(original);
+    }
 }

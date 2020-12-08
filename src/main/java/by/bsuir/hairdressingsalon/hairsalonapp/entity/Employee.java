@@ -40,4 +40,14 @@ public class Employee {
                joinColumns = @JoinColumn(name = "employee_id"),
                inverseJoinColumns = @JoinColumn(name = "procedure_id"))
     private Set<SalonProcedure> canPerformProcedures = new HashSet<>();
+
+
+    // @OneToOne(orphanRemoval = true)
+    // @JoinColumn(name = "id", referencedColumnName = "performing_employee_id")
+    @OneToMany(
+            mappedBy = "performingEmployee",
+            orphanRemoval = true
+            // cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REMOVE, CascadeType.REFRESH}
+    )
+    private Set<ProcedureAppointment> employeeAppointments = new HashSet<>();
 }

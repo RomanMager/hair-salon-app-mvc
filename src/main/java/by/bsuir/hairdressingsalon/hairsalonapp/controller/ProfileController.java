@@ -32,23 +32,27 @@ public class ProfileController {
     public String displayCustomerProfilePage(@AuthenticationPrincipal Customer customer, Model model) {
         List<ProcedureAppointment> appointmentsForCustomer = appointmentService.getAppointmentsForCustomer(customer);
 
-        model.addAttribute("customer", customer);
+        Customer customerData = customerService.findByLoginOrEmail(customer.getLogin(), null).orElseThrow();
+        model.addAttribute("customer", customerData);
         model.addAttribute("appointmentsForCustomer", appointmentsForCustomer);
 
         return "customer/profile";
     }
 
-    @PostMapping("/profile")
-    public String updateProfile(@PathVariable Long id, @AuthenticationPrincipal Customer customer, Model model) {
-        customer.setId(id);
-        customerService.save(customer);
-
-        return "redirect:/profile";
+    @GetMapping("/edit")
+    public String showEmployeeEditForm(@AuthenticationPrincipal Customer customer, Model model) {
+        model.addAttribute("customer", customer);
+        return "customer/profile-edit";
     }
 
-    @GetMapping("/employees/edit/{id}")
-    public String showEmployeeEditForm(@PathVariable Long id, Model model) {
+    @PostMapping
+    public String updateProfile(@AuthenticationPrincipal Customer customer, Customer updated, Model model) {
+        // updated.setId(customer.getId());
+        // customerService.save(updated);
 
-        return "customer/profile-edit";
+        customerService.updateProfile(customer, updated);
+
+        model.addAttribute("customer", updated);
+        return "redirect:/profile";
     }
 }

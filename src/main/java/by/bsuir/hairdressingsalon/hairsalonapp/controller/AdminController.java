@@ -94,6 +94,14 @@ public class AdminController {
         return "redirect:/admin/employees";
     }
 
+    @GetMapping("/employees/delete/{id}")
+    public String deleteEmployee(@PathVariable Long id, Model model) {
+        // Employee employee = employeeService.getEmployeeById(id).orElseThrow();
+        employeeService.deleteById(id);
+
+        return "redirect:/admin/employees";
+    }
+
     @GetMapping("/appointments")
     public String showAppointmentsManagementPage(@AuthenticationPrincipal Customer admin, Model model) {
         List<ProcedureAppointment> appointments = appointmentService.getAllAppointments();
@@ -101,4 +109,5 @@ public class AdminController {
 
         return "admin/appointment-management";
     }
+
 }
